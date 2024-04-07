@@ -26,15 +26,16 @@ int main(void) {
         glRotatef(minecrouft.player.rot_x, 0.0f, 1.0f, 0.0f);
         gluLookAt(minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z, minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z + 1, 0.0, 1.0, 0.0);
         proceed_pressed_keys();
-        //printf("x=%f y=%f z=%f\n", minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z);
+        printf("x=%f y=%f z=%f\n", minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z);
+        printf("chunk_x=%d chunk_z=%d\n", (int) minecrouft.player.pos.x / 16  - (minecrouft.player.pos.x < 0), (int) minecrouft.player.pos.z / 16 - (minecrouft.player.pos.x < 0));
         //fflush(stdout);
         for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++)
         {
             for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++)
             {
-                int chunk_x = (int) minecrouft.player.pos.x / 16 + i;
-                int chunk_z = (int) minecrouft.player.pos.z / 16 + j;
-                printf("chunk_x=%d chunk_z=%d\n", chunk_x + WORLD_SIZE / 2, chunk_z + WORLD_SIZE / 2);
+                int chunk_x = (int) minecrouft.player.pos.x / 16 + i - (minecrouft.player.pos.x < 0);
+                int chunk_z = (int) minecrouft.player.pos.z / 16 + j - (minecrouft.player.pos.z < 0);
+                // printf("chunk_x=%d chunk_z=%d\n", chunk_x + WORLD_SIZE / 2, chunk_z + WORLD_SIZE / 2);
                 chunk = minecrouft.world.chunks[chunk_x + WORLD_SIZE / 2][chunk_z + WORLD_SIZE / 2];
                 if (!chunk)
                     chunk = init_chunk();
