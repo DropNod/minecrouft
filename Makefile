@@ -3,10 +3,10 @@ NAME = minecrouft
 CC = cc
 
 CFLAGS = -g
-IFLAGS = -Iinclude
-LFLAGS = -Llib -lm -lGL -lGLU -lglfw
+IFLAGS = -Iinclude -I/usr/include/freetype2
+LFLAGS = -Llib -lm -lGL -lGLU -lglfw -lfreetype
 
-FILES =	main pos player chunk world textures keyboard minecrouft
+FILES =	main pos player chunk world textures input minecrouft draw
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))

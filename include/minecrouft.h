@@ -6,11 +6,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#define _USE_MATH_DEFINES
 
 #include "stb_image.h"
 
-#define RENDER_DISTANCE 3
+#define WIDTH 1920
+#define HEIGHT 1080
+#define RENDER_DISTANCE 1
+#define WORLD_SIZE 100
+#define MOVEMENT_SPEED 0.1
+#define ROTATION_SPEED 0.1
+#define PI 3.14159265359
 
 typedef struct pos_s
 {
@@ -18,14 +23,29 @@ typedef struct pos_s
 }   pos_t;
 pos_t init_pos(float x, float y, float z);
 
+typedef struct chunk_s
+{
+    unsigned int ***blocks;
+}   chunk_t;
+chunk_t *init_chunk();
+
+typedef struct world_s
+{
+    chunk_t ***chunks;
+}   world_t;
+world_t init_world();
 
 typedef struct player_s
 {
     pos_t pos;
-    float rotX;
-    float rotY;
+    float rot_x;
+    float rot_y;
 }   player_t;
-player_t init_player(pos_t pos, float rotX, float rotY);
+player_t init_player(pos_t pos, float rot_x, float rot_y);
+void move_forward(player_t *player, world_t *world);
+void move_backward(player_t *player, world_t *world);
+void move_left(player_t *player, world_t *world);
+void move_right(player_t *player, world_t *world);
 
 typedef struct textures_s
 {
@@ -47,18 +67,9 @@ typedef struct keyboard_s
 }   keyboard_t;
 keyboard_t init_keyboard();
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void cursor_callback(GLFWwindow* window, double cursor_x, double cursor_y);
+void proceed_pressed_keys();
 
-typedef struct chunk_s
-{
-    unsigned int ***blocks;
-}   chunk_t;
-chunk_t *init_chunk();
-
-typedef struct world_s
-{
-    chunk_t ***chunks;
-}   world_t;
-world_t init_world();
 
 typedef struct minecrouft_s
 {
@@ -69,3 +80,7 @@ typedef struct minecrouft_s
     keyboard_t keyboard;
 }   minecrouft_t;
 minecrouft_t init_minecrouft();
+
+//draw.c
+void draw_line(pos_t pos1, pos_t pos2);
+void draw_cube(pos_t pos);
