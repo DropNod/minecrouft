@@ -4,9 +4,12 @@ minecrouft_t minecrouft;
 
 int main(void) {
     int width, height;
-    chunk_t *chunk;
+    int frame_count, fps;
+    double current_time, delta_time, last_time;
 
     minecrouft = init_minecrouft();
+    fps = 0;
+    last_time = glfwGetTime();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
     // glEnable(GL_CULL_FACE);
@@ -19,32 +22,37 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(60.0, width / (float) height, 1.0, 1000.0);
+        gluPerspective(60.0, width / (float) height, 0.0001, 1000.0);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         glRotatef(minecrouft.player.rot_y, 1.0f, 0.0f, 0.0f);
         glRotatef(minecrouft.player.rot_x, 0.0f, 1.0f, 0.0f);
-        gluLookAt(minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z, minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z + 1, 0.0, 1.0, 0.0);
+        gluLookAt(minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z, minecrouft.player.pos.x,  minecrouft.player.pos.y, minecrouft.player.pos.z + 1, 0.0, 1.0, 0.0);
         proceed_pressed_keys();
+        current_time = glfwGetTime();
+        delta_time = current_time - last_time;
+        fps = 1 / delta_time; 
+        last_time = current_time;
+
+        // Debug
         printf("x=%f y=%f z=%f\n", minecrouft.player.pos.x, minecrouft.player.pos.y, minecrouft.player.pos.z);
-        printf("chunk_x=%d chunk_z=%d\n", (int) minecrouft.player.pos.x / 16  - (minecrouft.player.pos.x < 0), (int) minecrouft.player.pos.z / 16 - (minecrouft.player.pos.x < 0));
-        //fflush(stdout);
+        printf("chunk_x=%d chunk_z=%d\n", (int) minecrouft.player.pos.x / 16, (int) minecrouft.player.pos.z / 16);
+        printf("%dfps\n", fps);
+        fflush(stdout);
         for (int i = -RENDER_DISTANCE; i <= RENDER_DISTANCE; i++)
         {
             for (int j = -RENDER_DISTANCE; j <= RENDER_DISTANCE; j++)
             {
-                int chunk_x = (int) minecrouft.player.pos.x / 16 + i - (minecrouft.player.pos.x < 0);
-                int chunk_z = (int) minecrouft.player.pos.z / 16 + j - (minecrouft.player.pos.z < 0);
-                // printf("chunk_x=%d chunk_z=%d\n", chunk_x + WORLD_SIZE / 2, chunk_z + WORLD_SIZE / 2);
-                chunk = minecrouft.world.chunks[chunk_x + WORLD_SIZE / 2][chunk_z + WORLD_SIZE / 2];
-                if (!chunk)
-                    chunk = init_chunk();
+                int chunk_x = (int) minecrouft.player.pos.x / 16 + i;
+                int chunk_z = (int) minecrouft.player.pos.z / 16 + j;
+                if (!minecrouft.world.chunks[chunk_x][chunk_z])
+                    minecrouft.world.chunks[chunk_x][chunk_z] = init_chunk();
                 for (int x = 0; x < 16; x++)
                 {
                     for (int y = 0; y < 100; y++)
                     {
                         for (int z = 0; z < 16; z++)
-                            if (chunk->blocks[x][y][z] == 1)
+                            if (minecrouft.world.chunks[chunk_x][chunk_z]->blocks[x][y][z] == 1)
                                 draw_cube(init_pos(chunk_x * 16 + x, y, chunk_z * 16 + z));
                     }
                 }

@@ -22,5 +22,6 @@ chunk_t *init_chunk()
         for (int z = 0; z < 16; z++)
             chunk->blocks[x][0][z] = 1;
     }
+    chunk->blocks[0][1][0] = 1;
     return (chunk);
 }

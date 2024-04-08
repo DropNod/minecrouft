@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -g
 IFLAGS = -Iinclude -I/usr/include/freetype2
-LFLAGS = -Llib -lm -lGL -lGLU -lglfw -lfreetype
+LFLAGS = -Llib -lm -lGLEW -lGL -lGLU -lglfw -lfreetype
 
 FILES =	main pos player chunk world textures input minecrouft draw
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -11,7 +12,7 @@
 
 #define WIDTH 1920
 #define HEIGHT 1080
-#define RENDER_DISTANCE 1
+#define RENDER_DISTANCE 4
 #define WORLD_SIZE 100
 #define MOVEMENT_SPEED 0.1
 #define ROTATION_SPEED 0.1
