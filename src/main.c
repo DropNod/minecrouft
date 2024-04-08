@@ -12,8 +12,8 @@ int main(void) {
     last_time = glfwGetTime();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
-    // glEnable(GL_CULL_FACE);
-    // glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     while (!glfwWindowShouldClose(minecrouft.window))
     {
         void proceed_pressed_keys();
@@ -56,6 +56,7 @@ int main(void) {
                                 draw_cube(init_pos(chunk_x * 16 + x, y, chunk_z * 16 + z));
                     }
                 }
+                glLineWidth(2);
                 glColor3f(1.f, 0.f, 0.f);
                 draw_line(init_pos(chunk_x * 16, 0, chunk_z * 16), init_pos(chunk_x * 16, 100, chunk_z * 16));
                 draw_line(init_pos(chunk_x * 16 + 16, 0, chunk_z * 16), init_pos(chunk_x * 16 + 16, 100, chunk_z * 16));

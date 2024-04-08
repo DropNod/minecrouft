@@ -80,10 +80,10 @@ void draw_cube(pos_t pos)
     {
         glBindTexture(GL_TEXTURE_2D, minecrouft.textures.dirt);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 0.0, 1.0);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0, 0.0, 1.0);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0, 0.0, 0.0);
         glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 0.0, 0.0);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0, 0.0, 0.0);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0, 0.0, 1.0);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 0.0, 1.0);
         glEnd();
     }
 
@@ -91,17 +91,8 @@ void draw_cube(pos_t pos)
     {
         glBindTexture(GL_TEXTURE_2D, minecrouft.textures.grass_side_carried);
         glBegin(GL_QUADS);
-
+    
         // Face avant
-        if (tab[2])
-        {
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 1.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, 1.0f, 1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 0.0f, 1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, 1.0f);
-        }
-
-        // Face arrière
         if (tab[3])
         {
             glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 1.0, 0.0);
@@ -110,23 +101,33 @@ void draw_cube(pos_t pos)
             glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 0.0, 0.0);
         }
 
-        // Face droite
-        if (tab[4])
+        // Face arrière
+        if (tab[2])
         {
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 1.0, 0.0);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(0.0, 1.0, 1.0);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(0.0, 0.0, 1.0);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 0.0, 0.0);
+            glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0f, 0.0f, 1.0f);
+            glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 0.0f, 1.0f);
+            glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, 1.0f, 1.0f);
+            glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 1.0f);
         }
 
         // Face gauche
         if (tab[5])
         {
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0, 1.0, 1.0);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0, 1.0, 0.0);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0, 0.0, 0.0);
             glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0, 0.0, 1.0);
+            glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0, 0.0, 0.0);
+            glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0, 1.0, 0.0);
+            glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0, 1.0, 1.0);
         }
+
+        // Face droite
+        if (tab[4])
+        {
+            glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 0.0, 0.0);
+            glTexCoord2f(1.0f, 1.0f); glVertex3f(0.0, 0.0, 1.0);
+            glTexCoord2f(1.0f, 0.0f); glVertex3f(0.0, 1.0, 1.0);
+            glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 1.0, 0.0);
+        }
+
         glEnd();
     }
 
