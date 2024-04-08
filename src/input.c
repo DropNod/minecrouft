@@ -81,8 +81,8 @@ void proceed_pressed_keys()
     if (minecrouft.keyboard.d_is_pressed)
         move_right(&minecrouft.player, &minecrouft.world);
     if (minecrouft.keyboard.space_is_pressed)
-        minecrouft.player.pos.y += MOVEMENT_SPEED;
+        move_up(&minecrouft.player, &minecrouft.world);
     if (minecrouft.keyboard.shift_is_pressed)
-        minecrouft.player.pos.y -= MOVEMENT_SPEED;
+        move_down(&minecrouft.player, &minecrouft.world);
 }
 

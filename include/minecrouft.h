@@ -12,7 +12,7 @@
 
 #define WIDTH 1920
 #define HEIGHT 1080
-#define RENDER_DISTANCE 4
+#define RENDER_DISTANCE 5
 #define WORLD_SIZE 100
 #define MOVEMENT_SPEED 0.1
 #define ROTATION_SPEED 0.1
@@ -47,6 +47,8 @@ void move_forward(player_t *player, world_t *world);
 void move_backward(player_t *player, world_t *world);
 void move_left(player_t *player, world_t *world);
 void move_right(player_t *player, world_t *world);
+void move_up(player_t *player, world_t *world);
+void move_down(player_t *player, world_t *world);
 
 typedef struct textures_s
 {

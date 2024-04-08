@@ -88,3 +88,26 @@ void move_right(player_t *player, world_t *world)
         new_pos.z = pos.z;
     player->pos = new_pos;
 }
+
+void move_up(player_t *player, world_t *world)
+{
+    pos_t pos;
+    chunk_t *chunk;
+
+    printf("caca\n");
+    pos = player->pos;
+    chunk = world->chunks[(int) pos.x / 16][(int) pos.z / 16];
+    if ((int) pos.y && chunk && !chunk->blocks[(int) pos.x % 16][(int) pos.y + 1][(int) pos.z % 16])
+         player->pos.y += MOVEMENT_SPEED;
+}
+
+void move_down(player_t *player, world_t *world)
+{
+    pos_t pos;
+    chunk_t *chunk;
+
+    pos = player->pos;
+    chunk = world->chunks[(int) pos.x / 16][(int) pos.z / 16];
+    if ((int) pos.y && chunk && !chunk->blocks[(int) pos.x % 16][(int) pos.y - 1][(int) pos.z % 16])
+         player->pos.y -= MOVEMENT_SPEED;
+}
